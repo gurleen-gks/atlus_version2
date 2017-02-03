@@ -1,0 +1,2 @@
+select f1.csha as curr, f2.csha as prev,cts.cwhen as cwhen,cts.email as email, f1.design as f1_design, f2.design as f2_design, (f1.design-f2.design) as design from pmd_uni as f1, pmd_uni f2,cpairs as cpairs, commits as cts where cts.application=f1.application and f1.application='apache-accumulo' and f2.application=f1.application and f1.application=cpairs.application and f1.csha=cpairs.curr and f2.csha=cpairs.prev and cts.csha=f1.csha and cts.cwhen > '2016-09-01' order by cts.cwhen;
+
