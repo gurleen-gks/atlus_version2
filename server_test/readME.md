@@ -1,4 +1,5 @@
 2/10/2017---------------------------------------------------
+
 added a table named registered_user to storage the user data
 
 CREATE TABLE public.registered_user
