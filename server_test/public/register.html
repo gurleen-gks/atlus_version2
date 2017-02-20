@@ -1,0 +1,70 @@
+<html>
+
+    <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Tangerine|Inconsolata|Droid+Sans">
+
+    <style>
+        div#test{
+            font-family: 'Tangerine',serif;
+            font-size: 48px;
+        }
+        p#link1{
+            font-family: 'Tangerine',serif;
+        }
+
+    </style>
+
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<p>Register</p>
+<form action="test.jsp" method="post">
+    Username :
+    <input type="text" id="name" />
+    <br/><br/>
+    password:
+    <input type="text" id="pass" />
+    Email:
+    <input type="text" id="eml" />
+    <br/><br/>
+    &nbsp&nbsp&nbsp&nbsp&nbsp
+    <input type="button" value="Submit" id="x">
+</form>
+
+</body>
+
+    <script type="text/javascript">
+
+        var after_login=function(data,status){
+            if (status=='success'){
+                alert(data+'--'+status) ;
+            }
+            else alert('login refused') ;
+
+        }
+
+        $(document).ready(function(){
+            $("#x").click(function(){
+                var name    =   $("#name").val() ;
+                var password    =   $("#pass").val() ;
+                var eml=$("#eml").val();
+                $.post('http://127.0.0.1:3000/register',
+                {
+                    name    :   name ,
+                    pass     :   password,
+                       eml: eml
+                },
+//                        function(data,status){
+//                            alert(data+'--'+status) ;
+//                        }
+                        after_login
+                );
+//                $.get('add',function(data,status){
+//                    document.write(data) ;
+//                }) ;
+            });
+        });
+    </script>
+
+</html>

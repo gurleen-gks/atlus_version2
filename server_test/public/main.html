@@ -1,0 +1,68 @@
+<html>
+
+    <link rel="stylesheet" type="text/css" href="http://fonts.useso.com/css?family=Tangerine|Inconsolata|Droid+Sans">
+
+    <style>
+        div#test{
+            font-family: 'Tangerine',serif;
+            font-size: 48px;
+        }
+        p#link1{
+            font-family: 'Tangerine',serif;
+        }
+
+    </style>
+
+    <script src="//cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div id="test">
+    <h1>Main Page</h1>
+</div>
+<p>Register & Login</p>
+<form action="test.jsp" method="post">
+    csha:
+    <input type="text" id="csha" />
+    <br/><br/>
+    <div><a href="/search" id="csha">search</a></div>
+    &nbsp&nbsp
+    c906e4ba6436b87b7cdfc168fc318f2ff27da279
+    &nbsp&nbsp&nbsp
+
+    <div><a href="/logout" id="logout">log out</a></div>
+    <input type="button" value="Submit" id="submit">
+</form>
+
+</body>
+
+    <script type="text/javascript">
+
+        var after_login=function(data,status){
+            // if (status=='success'){
+            //     alert(data+'--'+status) ;
+            // }
+            // else alert('login refused') ;
+
+        }
+
+        $(document).ready(function(){
+            $("#submit").click(function(){
+                var name    =   $("#csha").val() ;
+                $.post('http://127.0.0.1:3000/searchcsha',
+                {
+            
+                    csha    :   name
+                },
+//                        function(data,status){
+//                            alert(data+'--'+status) ;
+//                        }
+                        after_login
+                );
+               
+            });
+        });
+    </script>
+
+</html>
