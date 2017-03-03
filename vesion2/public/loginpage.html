@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <meta name="description" content="Login">
+    <meta name="author" content="Webdesigntuts+">
+    <link rel="stylesheet" type="text/css" href="loginstyle.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+            $("#loginbutton").click(function(){
+              var szReg=/^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/; 
+              var bChk=szReg.test(document.getElementById("email").value); 
+             if(!bChk|| document.getElementById("email").length==0){
+                  alert('please enter correct email address');
+                  document.getElementById("email").focus();
+                   
+              }
+            else
+            {
+                var email    =   $("#email").val() ;
+                var pwd     =   $("#pwd").val() ;
+                $.ajax({
+                    url: 'http://hercules.usc.edu:52017/login',
+                    //url:'http://127.0.0.1:3000/login',
+                    async:false,
+                    type: 'get',
+                    datatype:'json',
+                    data:{ email    :   email ,   pwd     :   pwd},
+                    error:function( textStatus, errorThrown){
+                        alert('Error ');
+                    
+                        },
+                        success: function(data){
+                          if(data.status=="success")
+                          {
+                             alert("logged in");
+                             window.location.href="mainpage.html";
+                           }
+                           else
+                           {
+                              alert("incorrect email or password.");
+                               $("#pwd").value="";
+                                $("#email").value="";
+                                 window.location.reload();
+
+                           }
+  
+  
+                    }
+                });
+
+      
+            }
+          });
+            $("#register").click(function(){
+              window.location.href="registerpage.html";
+            });
+        });
+
+   // $(document).ready(function() {
+  
+   //  $(".password").blur(function() {
+   //      $(".pass-icon").css("left","0px");
+   //  });
+    // $("#loginbutton").click(function(){
+    //             var email    =   $("#email").val() ;
+    //             var pwd     =   $("#pwd").val() ;
+    //         //     $.get('http://127.0.0.1:3000/login', {
+    //         //                  email    :   name ,
+    //         //                  pwd     :   pwd
+    //         //         },  function(data, status) {
+    //         //            // self.location='register.html'; 
+    //         //             alert("logged in!");
+    //         //         }
+    //         // );
+            // $.ajax({
+            //         url: 'http://127.0.0.1:3000/login',
+            //         type: 'post',
+            //         datatype:'json',
+            //         data:{ email    :   email ,   pwd     :   pwd},
+            //         error:function(XMLHttpRequest, textStatus, errorThrown){
+            //             alert('Error ');
+            //         self.location='register.html';
+            //             }，
+            //             success: function(data){
+            //                  alert(data);
+            //                  alert("logged in");
+  
+            //         }
+    //         // });
+    //         $.ajax({  
+    //             url:'http://127.0.0.1:3000/login',  
+    //             dataType:"jsonp",  
+    //             jsonp:"callback",
+    //             type:'get',
+    //             data:{ email    :   email ,   pwd     :   pwd},  
+    //             jsonpCallback:"success_jsonpCallback"  
+    //         }).done(function(data) {  
+    //            alert("Logged in!!!!");
+               
+
+    //         });  
+    //         
+    // });
+//});
+</script>
+</head>
+ 
+<body>
+<form name="login-form" class="login-form" action="" method="get" onsubmit="return false">
+   <meta name="description" content="Login">
+    <div class="header">
+         <h1>Login</h1>
+    </div>
+    <div class="content">
+    <!--USERNAME--><input id="email" name="username" type="text" class="input username" value="Email" onfocus="this.value=''" /><!--END USERNAME-->
+    <br/><br/>
+    <!--PASSWORD--> <input id="pwd" name="password" type="password" class="input password" value="Password" onfocus="this.value=''" /><!--END PASSWORD-->
+    </div>
+    <div class="footer">
+    <!--LOGIN BUTTON--><input id="loginbutton" type="submit" name="submit" value="Login" class="button" /><!--END LOGIN BUTTON-->
+    <!--REGISTER BUTTON--><input id="register" type="submit" name="submit" value="Register" class="register" /><!--END REGISTER BUTTON-->
+    </div>
+    <!--END FOOTER-->
+
+</form>
+</body>
+ 
+</html>

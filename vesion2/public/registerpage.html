@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <meta charset="utf-8">
+    <title>Register</title>
+    <meta name="description" content="Login">
+    <meta name="author" content="Webdesigntuts+">
+    <link rel="stylesheet" type="text/css" href="registerstyle.css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+            $("#REGISTER").click(function(){
+              var szReg=/^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/; 
+              var bChk=szReg.test(document.getElementById("email").value); 
+             if(!bChk|| document.getElementById("email").length==0){
+                  alert('please enter correct email address');
+                  document.getElementById("email").focus();
+                   
+              }
+            else
+            {
+                var email    =   $("#email").val() ;
+                $.ajax({
+                    url: 'http://hercules.usc.edu:52017/checkemail',
+                    //url:'http://127.0.0.1:3000/checkemail',
+                    async:false,
+                    type: 'get',
+                    datatype:'json',
+                    data:{ email    :   email },
+                    error:function( textStatus, errorThrown){
+                        alert('Error ');
+                        },
+                        success: function(data){
+                          if(data.status=="success")
+                          {
+                             if($("#pwd").val() ==$("#pwd1").val())
+                             {   var pwd     =   $("#pwd").val() ;
+                                 var user    =   $("#username").val() ;
+                                $.ajax({
+                                     url: 'http://hercules.usc.edu:52017/register',
+                                     // url:'http://127.0.0.1:3000/register',
+                                      async:false,
+                                      type: 'get',
+                                      datatype:'json',
+                                      data:{ email    :   email ,   pwd     :   pwd,name:user},
+                                      error:function( textStatus, errorThrown){
+                                            alert('Error ');
+                    
+                                        },
+                                      success: function(data){
+                                            if(data.status=="success")
+                                          {
+                                                alert("registered sucessfully! Please Log in.");
+                                                window.location.href="loginpage.html";
+                                          }
+                                          else
+                                          {
+                                               alert("incorrect email or password.");
+                                               $("#pwd").value="";
+                                               $("#email").value="";
+                                                window.location.reload();
+
+                                           }
+    
+          
+                                       }
+                                    });
+                              }
+                              else
+                              {
+                                alert("These passwords don't match. Try again?");
+                              }
+                          }
+                           else
+                           {
+                              alert("This email address has been registered!");
+                                 //window.location.reload();
+
+                           }
+  
+  
+                    }
+                });
+
+                
+
+      
+            }
+          });
+        });
+
+   // $(document).ready(function() {
+  
+   //  $(".password").blur(function() {
+   //      $(".pass-icon").css("left","0px");
+   //  });
+    // $("#loginbutton").click(function(){
+    //             var email    =   $("#email").val() ;
+    //             var pwd     =   $("#pwd").val() ;
+    //         //     $.get('http://127.0.0.1:3000/login', {
+    //         //                  email    :   name ,
+    //         //                  pwd     :   pwd
+    //         //         },  function(data, status) {
+    //         //            // self.location='register.html'; 
+    //         //             alert("logged in!");
+    //         //         }
+    //         // );
+            // $.ajax({
+            //         url: 'http://127.0.0.1:3000/login',
+            //         type: 'post',
+            //         datatype:'json',
+            //         data:{ email    :   email ,   pwd     :   pwd},
+            //         error:function(XMLHttpRequest, textStatus, errorThrown){
+            //             alert('Error ');
+            //         self.location='register.html';
+            //             }，
+            //             success: function(data){
+            //                  alert(data);
+            //                  alert("logged in");
+  
+            //         }
+    //         // });
+    //         $.ajax({  
+    //             url:'http://127.0.0.1:3000/login',  
+    //             dataType:"jsonp",  
+    //             jsonp:"callback",
+    //             type:'get',
+    //             data:{ email    :   email ,   pwd     :   pwd},  
+    //             jsonpCallback:"success_jsonpCallback"  
+    //         }).done(function(data) {  
+    //            alert("Logged in!!!!");
+               
+
+    //         });  
+    //         
+    // });
+//});
+</script>
+</head>
+ 
+<body>
+<form name="login-form" class="login-form" action="" method="get" onsubmit="return false">
+   <meta name="description" content="Login">
+    <div class="header">
+         <h1>Register</h1>
+    </div>
+    <div class="content">
+    email: <br/><br/>
+    <input id="email" type="text" class="input username" value="Email" onfocus="this.value=''" />
+     <br/><br/>
+    choose your username: <br/><br/>
+    <input id="username"  type="text" class="input username" value="username" onfocus="this.value=''" />
+     <br/><br/>
+    create a password: 
+    <input id="pwd" name="password" type="password" class="input password" value="Password" onfocus="this.value=''" />
+     <br/><br/>
+     confirm your password: 
+    <input id="pwd1" name="password" type="password" class="input password" value="Password" onfocus="this.value=''" />
+    </div>
+    <div class="footer">
+    <input id="REGISTER" type="submit" name="submit" value="register" class="button" />
+   
+    </div>
+
+</form>
+<br/><br/><br/><br/><br/><br/>
+</body>
+ 
+</html>
