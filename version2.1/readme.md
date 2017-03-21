@@ -1,7 +1,7 @@
 query example: 
 1)http://localhost:3000/checkstatus
   To check whether loged in or not. Can be used in the mainpage before using ajax to call the API
-2)log in
+2)log in(no longer supported, please use the loginpage to login)
 http://localhost:3000/login?email=clesss@gmail.com&pwd=205
 
 3)register 
