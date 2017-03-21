@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+        <link rel="stylesheet" href="mainstyle.css">      
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        
+  
+        
+    </head>
+<body ng-app="myApp" ng-controller="myCtrl">
+    
+      <nav id="topbar">
+        <h1>
+              Quality Attribute Analysis
+        </h1>
+        </nav>
+         <div class="container-fluid">
+            <div class="row">
+                <div id="scatter" class="col-xs-12 col-md-9"></div>
+                <div id="information" class="col-xs-6 col-md-3">
+                    <h3>Information</h3>
+                    <table class = "table table-responsive table-striped">
+                        <tbody>
+                             <tr>
+                                <th>Project Name:</th>
+                                <td ng-bind="project"></td>
+                            </tr>
+                            <tr>
+                                <th>Metric Name:</th>
+                                <td ng-bind="metric"></td>
+                            </tr>
+                            <tr>
+                                <th>Commit ID:</th>
+                                <td id="cid"></td>
+                            </tr>
+                             <tr id="author">
+                                <th>Author Name:</th>
+                                <td id="authorname"></td>
+                            </tr>
+                            <tr id="time">
+                                <th>Time:</th>
+                                <td id="timedetail"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>Legend</h3>
+                    <table id="legends" class="table table-striped table-responsive table-condensed">
+                    </table>
+                </div>
+                <div id="forms"  class="col-xs-6 col-md-12">
+                     <h3>Input</h3>
+                    <form class="form-group">
+        
+                        <label for="projectSelect">Projects</label>
+                        <select class="form-control" id="projectSelect" ng-model="project" ng-change=changeProject()>
+                            <option>apache-commons-lang</option>
+                            <option>apache-accumulo</option>
+                        </select>
+        
+                         <label for="metricSelect">Metrics</label>
+                        <select class="form-control" id="projectSelect" ng-model="metric" ng-change=changeMetric()>
+                            <option>sonarqube_combined_issues_uni.major</option>
+                            <option>sonarqube_combined_issues_uni.total</option>
+                        </select>
+                        
+                        <label for="devSelect">Developer</label>
+                        <select class="form-control" ng-model="developer" id="devSelect"
+                        ng-change="changeDev()" ng-options="x for x in dl">
+                        </select>
+                        
+                        <label for="dateSelect">Dates</label>
+                        <input class="form-control" ng-change="changeDateTime()" ng-model="startDate" id="startDate" type="date" min="">
+                        <input class="form-control" ng-change="changeDateTime()" ng-model="endDate" id="endDate" type="date" max="">
+                        
+                        
+                    </form>
+                    <input class="btn btn-primary" type="button" id="xAxis" name="xAxis" value="reset" ng-click="reset()">
+                </div>
+             </div>
+        </div>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://d3js.org/d3-time.v1.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    
+</body>
+</html>

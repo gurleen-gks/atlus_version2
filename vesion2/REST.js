@@ -168,7 +168,10 @@ REST_ROUTER.prototype.handleRoutes = function (router, connection, md5) {
 
         }
     });
-
+    router.get("/check", function (req, res) {
+      console.log("loginornot:");
+      console.log(req.session.sign);
+    });
     router.get("/atlusapi/allAuthors", function (req, res) {
          //console.log(req.session.sign);
 
